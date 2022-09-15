@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2022-07-25T02:27:12Z"
+  generation: 1
+  labels:
+    app: mypoddeployment
+  name: mypoddeployment
+  namespace: microservice
+  resourceVersion: "428706"
+  uid: bd6d85e6-2163-495f-8883-f8a59cff42a9
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: mypoddeployment
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mypoddeployment
+    spec:
+      containers:
+      - image: sama664/restpoc:latest
+        imagePullPolicy: Always
+        name: restpoc
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-07-25T02:27:16Z"
+    lastUpdateTime: "2022-07-25T02:27:16Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2022-07-25T02:27:12Z"
+    lastUpdateTime: "2022-07-25T02:27:16Z"
+    message: ReplicaSet "mypoddeployment-856494cc4" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

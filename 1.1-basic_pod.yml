@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: mypod
+ labels:
+  name: mypod
+spec:
+ containers: 
+ - name: mypod
+   image: sama664/restpoc:latest
+   ports:
+    - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mypod-service
+spec:
+  type: NodePort
+  selector:
+    name: mypod
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8080
+    nodePort: 30007
+
